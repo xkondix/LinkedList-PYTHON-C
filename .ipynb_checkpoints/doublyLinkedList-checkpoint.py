@@ -88,52 +88,46 @@ class LinkedList:
             self.head.prev=self.tail
             self.tail.next=self.head
             return
-        elif i == counter:
-            self.addStart(data);
-            return  
-        else:
-            curr = self.head.next
+        
+        curr = self.head
+        while curr.next!=self.head and counter < i:
+            curr = curr.next
             counter+=1
+            
+        if curr.next == self.head and counter<i:
+            return
+        elif curr is self.head:
+            self.addStart(data)
+            return
 
-            while curr!=self.head:
-                if i == counter:
-                    
-                    prevNode = curr.prev
-                    prevNode.next=new
-                    new.prev=prevNode
-                    curr.prev=new
-                    new.next=curr
-                    return
-                counter+=1
-                curr = curr.next
-                
-            if counter==i:
-                return self.addEnd(data)
-
+        else:
+            prevNode = curr.prev
+            prevNode.next=new
+            new.prev=prevNode
+            curr.prev=new
+            new.next=curr
             
             
     def delete(self,i):
         counter = 0
         if self.head is None:
             raise IndexError("list is empty")
-        elif i == counter:
-            return self.popStart()
         
+        curr = self.head
+        while curr.next!=self.head and counter < i:
+            curr = curr.next
+            counter+=1
+        if curr.next == self.head and counter<i:
+            return
+        elif curr is self.head:
+            return  self.popStart()
         else:
-            curr = self.head.next
-            while curr!=self.head:
-                counter+=1
-                if i == counter:
-                    if curr==self.tail:
-                        return self.popEnd()
-                    else:
-                        val = curr.data
-                        prevNode=curr.prev
-                        nextNode=curr.next
-                        prevNode.next=nextNode
-                        nextNode.prev=prevNode
-                        return val
-                curr = curr.next
+            val = curr.data
+            prevNode=curr.prev
+            nextNode=curr.next
+            prevNode.next=nextNode
+            nextNode.prev=prevNode
+            return val
             
     def __iter__(self):
         return self
