@@ -183,7 +183,6 @@ int deleteIndx(int indx){
           {
               if(curr==tail)
               {
-                  free(curr);
                   return popEnd();
               }
               else{
@@ -258,6 +257,10 @@ void insertIndx(int value,int indx){
             pushEnd(value);
             return;
         }
+      else
+      {
+          free(element);
+      }
   }
 
 
@@ -292,6 +295,16 @@ int main()
     insertIndx(12,12);
     cout();
     printf("\n");
+    
+    for(int i = 0; i<13; i++)
+    {
+        deleteIndx(5);
+        cout();
+        printf("\n");
+    }
+    
+    printf("next loop \n");
+
     
     for(int i = 0; i<13; i++)
     {
