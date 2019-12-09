@@ -171,10 +171,7 @@ int deleteIndx(int indx){
   }
   else if(indx==counter)
   {
-  int val = tail->data;
-  head = NULL;
-  tail = NULL;
-  return val;
+  return popFirst();
   }
   else
   {
@@ -230,32 +227,37 @@ void insertIndx(int value,int indx){
   else if(indx==counter)
   {
    free(element);
-   return pushFirst(value);
+   pushFirst(value);
+   return;
   }
   else
   {
       Node *curr = head->next;
+      counter++;
       while(curr!=head)
       {
-          counter++;
           if(indx==counter)
           {
-              if(curr==tail)
-              {
-                  free(element);
-                  return pushEnd(value);
-              }
-              else{
-              element -> next = curr;
-              element -> prev = curr -> prev;
-              curr -> prev -> next = element;
-              curr -> prev = element;
-              return;
-              }
+              
+              
+            element -> next = curr;
+            element -> prev = curr -> prev;
+            curr -> prev -> next = element;
+            curr -> prev = element;
+            return;
+              
           }
+          counter++;
           curr = curr -> next;
 
       }
+      
+      if(indx==counter)
+        {
+            free(element);
+            pushEnd(value);
+            return;
+        }
   }
 
 
@@ -272,10 +274,31 @@ int main()
         cout();
         printf("\n");
     }
+    
+    for(int i = 0; i<5; i++)
+    {
+        pushEnd(i);
+        cout();
+        printf("\n");
+    }
 
-    insertIndx(5,4);
+    insertIndx(9,9);
     cout();
     printf("\n");
+    insertIndx(10,10);
+    cout();
+    printf("\n");
+    
+    insertIndx(12,12);
+    cout();
+    printf("\n");
+    
+    for(int i = 0; i<13; i++)
+    {
+        deleteIndx(0);
+        cout();
+        printf("\n");
+    }
 
 
 
